@@ -1,0 +1,560 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>AristosAthens_ME182_ModelSAnalysisAssignment</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-11-30"><meta name="DC.source" content="AristosAthens_ME182_ModelSAnalysisAssignment.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Questions</a></li><li><a href="#3">Problem Statement</a></li><li><a href="#4">Assumptions</a></li><li><a href="#5">Constants</a></li><li><a href="#6">Data</a></li><li><a href="#7">Analysis</a></li><li><a href="#8">Plots</a></li><li><a href="#9">Test Point Plots</a></li></ul></div><pre class="codeinput"><span class="comment">%Model S Analysis Assignment</span>
+<span class="comment">%ME 182</span>
+<span class="comment">%Aristos Athens</span>
+
+close <span class="string">all</span>
+clear <span class="string">all</span>
+</pre><h2 id="2">Questions</h2><pre class="codeinput"><span class="comment">%Exactly what are the key points and what is needed at each?(TP1, TP2, TP3, TP4)</span>
+<span class="comment">%Is my value for k ok?</span>
+<span class="comment">%How do I account for battery capacity changing with discharge rate? What</span>
+<span class="comment">%Voltage vs Capacity graph/equation to use?</span>
+</pre><h2 id="3">Problem Statement</h2><pre class="codeinput"><span class="comment">% In one of our lectures on Slow Dynamics, we analyzes the range that a car can travel given that</span>
+<span class="comment">% the velocity is specified by repeats of the Simplified Federal Urban Driving Schedule (SFUDS).</span>
+<span class="comment">% Recall that the lecture was based on EV-1 from General Motors.</span>
+<span class="comment">% Please replicate the analysis for the Tesla Model S. Plot the waveforms for the key test points</span>
+<span class="comment">% identified in lecture (TP1, TP2, TP3 and TP4). You will need to find some of the key parameters on</span>
+<span class="comment">% the internet. Intelligent guesses are also allowed for parameters that are not in the public domain</span>
+<span class="comment">% provided they are accompanied by a good rationale.</span>
+<span class="comment">% Determine the distance that the Model S can travel over road that is well modeled as repeats of the SFUDS.</span>
+<span class="comment">% Assume that the Model S begins with a full battery.</span>
+<span class="comment">% Hint: Use MatLab or any of the other nice mathematical software packages to complete this assignment.</span>
+</pre><h2 id="4">Assumptions</h2><pre class="codeinput"><span class="comment">%2 passengers, each weighing 80 kg.</span>
+<span class="comment">%Passenger energy use (Photel) is 0.1 times the size of Pte.</span>
+<span class="comment">%Model discharge graph as linear. i.e. Voltage out vs. discharge declines</span>
+<span class="comment">%linearly</span>
+
+<span class="comment">%</span>
+</pre><h2 id="5">Constants</h2><pre class="codeinput"><span class="comment">%General</span>
+g = 9.81;           <span class="comment">%m/sec^2</span>
+
+<span class="comment">%Textbook</span>
+C_D = 0.24;
+A = 2.4;            <span class="comment">%m^2</span>
+mu = 0.005;
+massCar = 2108;      <span class="comment">%kg</span>
+etaGears = 0.95;
+etaMotor = 0.9;
+eta = etaMotor*etaGears;
+
+<span class="comment">%Assumptions</span>
+passengers = 2;
+passengerMass = 80; <span class="comment">%kg</span>
+massPassengers = passengers*passengerMass;
+mass = massCar + massPassengers;
+<span class="comment">%Flat road</span>
+psi = 0;            <span class="comment">%rad</span>
+
+<span class="comment">%Researched</span>
+
+<span class="comment">%Using an 85 kWh rated battery</span>
+<span class="comment">%http://www.roperld.com/science/teslamodels.htm</span>
+<span class="comment">%http://www.fueleconomy.gov/feg/PowerSearch.do?action=noform&amp;year1=2016&amp;year2=2016&amp;cbmkTesla=Tesla&amp;minmsrpsel=0&amp;maxmsrpsel=0&amp;city=0&amp;hwy=0&amp;comb=0&amp;YearSel=2016&amp;make=Tesla&amp;mclass=&amp;vfuel=&amp;vtype=&amp;trany=&amp;drive=&amp;cyl=&amp;MpgSel=000&amp;sortBy=Make&amp;Units=&amp;url=SearchServlet&amp;opt=new&amp;minmsrp=0&amp;maxmsrp=0&amp;minmpg=&amp;maxmpg=&amp;rowLimit=25&amp;tabView=0&amp;pageno=1</span>
+<span class="comment">%However, research shows you really have about 81 kWh usable</span>
+<span class="comment">%https://electrek.co/2016/02/03/tesla-battery-tear-down-85-kwh/</span>
+<span class="comment">%https://electrek.co/2016/12/14/tesla-battery-capacity/</span>
+
+<span class="comment">%Battery energy at full charge</span>
+Cbat = 81;          <span class="comment">%kWh</span>
+Cbat = 1000*Cbat;   <span class="comment">%Wh</span>
+
+<span class="comment">%Battery rated voltage</span>
+Voc = 375;          <span class="comment">%V</span>
+
+<span class="comment">%Battery internal resistance</span>
+Rin = 1;            <span class="comment">%Ohms</span>
+
+<span class="comment">%Peukert's constant for battery recharging</span>
+k = 1.12;
+</pre><h2 id="6">Data</h2><pre class="codeinput">data = importdata(<span class="string">'SFUDS_Data.mat'</span>);
+</pre><h2 id="7">Analysis</h2><pre class="codeinput"><span class="comment">%data</span>
+v = data(:,2);                              <span class="comment">%km/hour</span>
+figure
+plot(v)
+v = (1/3600)*(1000)*v;                      <span class="comment">%m/sec</span>
+v = repmat(v,10000,1);                       <span class="comment">%m/sec</span>
+time = transpose(1:1:length(v));            <span class="comment">%sec</span>
+<span class="comment">%Take approximate derivative of velocity to find approximate acceleration</span>
+a = diff(v(:));
+<span class="comment">%Adjust a vector length</span>
+a = [0;a];
+
+<span class="comment">%Initialize for the loop</span>
+FteVec = [];
+PVec = [];
+PMotorVec = [];
+PBatVec = [];
+PteVec = [];
+QVec = [];
+VVec = [];
+iVec = [];
+dVec = [];
+Qoc = Cbat/Voc;                             <span class="comment">%Amp/hr</span>
+Q = Qoc;                                    <span class="comment">%Amp/hr</span>
+V = Voc;                                    <span class="comment">%V</span>
+t = 0;                                      <span class="comment">%time index</span>
+d = 0;                                      <span class="comment">%m</span>
+
+<span class="keyword">while</span> (Q &gt; 0)
+    <span class="comment">%time step</span>
+    t = t + 1;
+
+    <span class="comment">%Instantaneous load force</span>
+    Fte = mass*g*(mu + psi + (1.05*a(t))/g) + 0.626*A*C_D*(v(t)^2);     <span class="comment">%N</span>
+
+    <span class="comment">%Instantaneous load power draw</span>
+    Pte = Fte*v(t);                                                   <span class="comment">%Watt</span>
+    <span class="comment">%Power Hotel</span>
+    Photel = 0.1*Pte;
+    <span class="comment">%Instantaneous battery current</span>
+    <span class="comment">%Initialize variables</span>
+<span class="comment">%     Pbat1=0;</span>
+<span class="comment">%     Pbat=0;</span>
+    <span class="keyword">if</span> (Pte == 0)
+        i = 0;
+        Pbat1 = 0;
+        Pbat = 0;
+    <span class="keyword">elseif</span> (Pte &gt; 0)
+        <span class="comment">%Instantaneous power drawn from battery</span>
+        Pbat1 = Pte/eta + Photel;
+        Pbat = (1/0.75)*Pbat1;
+        <span class="comment">%discharging battery (consuming energy)</span>
+        i = (V - sqrt((V^2) - 4*Rin*Pbat)) / (2*Rin);           <span class="comment">%Amp</span>
+    <span class="keyword">else</span>
+        <span class="comment">%Instantaneous power drawn from battery</span>
+        Pbat1 = eta*Pte + Photel;
+        Pbat = (1/0.75)*Pbat1;
+        <span class="comment">%charging battery</span>
+        i = (-V + sqrt((V^2) - 8*Rin*Pbat)) / (4*Rin);          <span class="comment">%Amp</span>
+    <span class="keyword">end</span>
+    <span class="comment">%Instantaneous battery charge</span>
+    <span class="keyword">if</span>(Pte &gt; 0)
+        Q = Q - i/3600;                                                 <span class="comment">%Amp/hr</span>
+    <span class="keyword">else</span>
+        Q = Q + (i^k)/3600;
+    <span class="keyword">end</span>
+
+    <span class="comment">%Use equation from book to find distance</span>
+<span class="comment">%     if(v(t) ~= 0)</span>
+<span class="comment">%         Photel = 0.1*Fte*v(t);</span>
+<span class="comment">%         deltad = Q*v(t) / ((Fte*v(t)/eta) + Photel);</span>
+<span class="comment">%         if(deltad &gt; 0)</span>
+<span class="comment">%             d = d + deltad;</span>
+<span class="comment">%         end</span>
+<span class="comment">%     end</span>
+
+    <span class="comment">%Total distance travelled. v is in 1 second increments</span>
+    d = d + v(t);
+
+    <span class="comment">%https://endless-sphere.com/forums/viewtopic.php?f=14&amp;t=67721</span>
+    dischargeSlope = (3.5/3.8 - 1);
+    discharge = 1 - (Q/Qoc);
+    V = Voc*(1 + discharge*dischargeSlope);
+
+    <span class="comment">%Storage arrays</span>
+    FteVec(t) = Fte;
+    PVec(t) = Pte;
+    VVec(t) = V;
+    QVec(t) = Q;
+    iVec(t) = i;
+    dVec(t) = d;
+    PbatVec(t) = Pbat;
+    PMotorVec(t) = Pbat1;
+    PteVec(t) = Pte;
+
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="AristosAthens_ME182_ModelSAnalysisAssignment_01.png" alt=""> <h2 id="8">Plots</h2><pre class="codeinput">figure
+plot(time,v);
+title(<span class="string">'Data - Velocity vs Time'</span>);
+xlabel(<span class="string">'time(s)'</span>);
+ylabel(<span class="string">'velocity(m/s)'</span>);
+
+figure
+plot(time,a);
+title(<span class="string">'Data - Acceleration vs Time'</span>);
+xlabel(<span class="string">'time(s)'</span>);
+ylabel(<span class="string">'acceleration(m/s^2)'</span>);
+
+figure
+plot(time(1:length(dVec)),dVec);
+title(<span class="string">'Calculated - Distance vs Time'</span>);
+xlabel(<span class="string">'time(s)'</span>);
+ylabel(<span class="string">'Distance(m)'</span>);
+
+figure
+plot(time(1:length(FteVec)),FteVec);
+title(<span class="string">'Calculated - Fte vs Time'</span>);
+xlabel(<span class="string">'time(s)'</span>);
+ylabel(<span class="string">'Force(N)'</span>);
+
+figure
+plot(time(1:length(QVec)),QVec);
+title(<span class="string">'Calculated - Q vs Time'</span>);
+xlabel(<span class="string">'time(s)'</span>);
+ylabel(<span class="string">'Charge(Amp hour)'</span>);
+
+figure
+plot(time(1:length(iVec)),iVec);
+title(<span class="string">'Calculated - Battery Current vs Time'</span>);
+xlabel(<span class="string">'time(s)'</span>);
+ylabel(<span class="string">'Current(Amp)'</span>);
+
+figure
+plot(time(1:length(VVec)),VVec);
+title(<span class="string">'Calculated - V vs Time'</span>);
+xlabel(<span class="string">'time(s)'</span>);
+ylabel(<span class="string">'Voltage(V)'</span>);
+</pre><pre class="codeoutput">Warning: Imaginary parts of complex X and/or Y arguments ignored 
+Warning: Imaginary parts of complex X and/or Y arguments ignored 
+Warning: Imaginary parts of complex X and/or Y arguments ignored 
+</pre><img vspace="5" hspace="5" src="AristosAthens_ME182_ModelSAnalysisAssignment_02.png" alt=""> <img vspace="5" hspace="5" src="AristosAthens_ME182_ModelSAnalysisAssignment_03.png" alt=""> <img vspace="5" hspace="5" src="AristosAthens_ME182_ModelSAnalysisAssignment_04.png" alt=""> <img vspace="5" hspace="5" src="AristosAthens_ME182_ModelSAnalysisAssignment_05.png" alt=""> <img vspace="5" hspace="5" src="AristosAthens_ME182_ModelSAnalysisAssignment_06.png" alt=""> <img vspace="5" hspace="5" src="AristosAthens_ME182_ModelSAnalysisAssignment_07.png" alt=""> <img vspace="5" hspace="5" src="AristosAthens_ME182_ModelSAnalysisAssignment_08.png" alt=""> <h2 id="9">Test Point Plots</h2><pre class="codeinput">figure
+plot(time(1:length(data)), v(1:length(data)), time(1:length(data)), a(1:length(data)));
+title(<span class="string">'TP1 - V and A vs Time'</span>);
+xlabel(<span class="string">'time(s)'</span>);
+ylabel(<span class="string">'Velocity(m/sec), Acceleration(m/sec^2'</span>);
+
+figure
+plot(time(1:length(data)), PteVec(1:length(data)));
+title(<span class="string">'TP2 - Power to Move Car'</span>);
+xlabel(<span class="string">'time(s)'</span>);
+ylabel(<span class="string">'Power(W)'</span>);
+
+figure
+plot(time(1:length(data)), PMotorVec(1:length(data)));
+title(<span class="string">'TP3 - Power From Motor'</span>);
+xlabel(<span class="string">'time(s)'</span>);
+ylabel(<span class="string">'Power(W)'</span>);
+
+figure
+plot(time(1:length(data)), PbatVec(1:length(data)));
+title(<span class="string">'TP4 - Power From Battery'</span>);
+xlabel(<span class="string">'time(s)'</span>);
+ylabel(<span class="string">'Power(W)'</span>);
+</pre><img vspace="5" hspace="5" src="AristosAthens_ME182_ModelSAnalysisAssignment_09.png" alt=""> <img vspace="5" hspace="5" src="AristosAthens_ME182_ModelSAnalysisAssignment_10.png" alt=""> <img vspace="5" hspace="5" src="AristosAthens_ME182_ModelSAnalysisAssignment_11.png" alt=""> <img vspace="5" hspace="5" src="AristosAthens_ME182_ModelSAnalysisAssignment_12.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%Model S Analysis Assignment
+%ME 182
+%Aristos Athens
+
+close all
+clear all
+
+%% Questions
+
+%Exactly what are the key points and what is needed at each?(TP1, TP2, TP3, TP4)
+%Is my value for k ok?
+%How do I account for battery capacity changing with discharge rate? What
+%Voltage vs Capacity graph/equation to use?
+
+
+%% Problem Statement
+
+% In one of our lectures on Slow Dynamics, we analyzes the range that a car can travel given that
+% the velocity is specified by repeats of the Simplified Federal Urban Driving Schedule (SFUDS).
+% Recall that the lecture was based on EV-1 from General Motors.
+% Please replicate the analysis for the Tesla Model S. Plot the waveforms for the key test points
+% identified in lecture (TP1, TP2, TP3 and TP4). You will need to find some of the key parameters on
+% the internet. Intelligent guesses are also allowed for parameters that are not in the public domain
+% provided they are accompanied by a good rationale.
+% Determine the distance that the Model S can travel over road that is well modeled as repeats of the SFUDS.
+% Assume that the Model S begins with a full battery.
+% Hint: Use MatLab or any of the other nice mathematical software packages to complete this assignment. 
+
+
+%% Assumptions
+
+%2 passengers, each weighing 80 kg.
+%Passenger energy use (Photel) is 0.1 times the size of Pte.
+%Model discharge graph as linear. i.e. Voltage out vs. discharge declines
+%linearly
+
+%
+
+
+%% Constants
+
+%General
+g = 9.81;           %m/sec^2
+
+%Textbook
+C_D = 0.24;
+A = 2.4;            %m^2
+mu = 0.005;
+massCar = 2108;      %kg
+etaGears = 0.95;
+etaMotor = 0.9;
+eta = etaMotor*etaGears;
+
+%Assumptions
+passengers = 2;
+passengerMass = 80; %kg
+massPassengers = passengers*passengerMass;
+mass = massCar + massPassengers;
+%Flat road
+psi = 0;            %rad
+
+%Researched
+
+%Using an 85 kWh rated battery
+%http://www.roperld.com/science/teslamodels.htm
+%http://www.fueleconomy.gov/feg/PowerSearch.do?action=noform&year1=2016&year2=2016&cbmkTesla=Tesla&minmsrpsel=0&maxmsrpsel=0&city=0&hwy=0&comb=0&YearSel=2016&make=Tesla&mclass=&vfuel=&vtype=&trany=&drive=&cyl=&MpgSel=000&sortBy=Make&Units=&url=SearchServlet&opt=new&minmsrp=0&maxmsrp=0&minmpg=&maxmpg=&rowLimit=25&tabView=0&pageno=1
+%However, research shows you really have about 81 kWh usable
+%https://electrek.co/2016/02/03/tesla-battery-tear-down-85-kwh/
+%https://electrek.co/2016/12/14/tesla-battery-capacity/
+
+%Battery energy at full charge
+Cbat = 81;          %kWh
+Cbat = 1000*Cbat;   %Wh
+
+%Battery rated voltage
+Voc = 375;          %V
+
+%Battery internal resistance
+Rin = 1;            %Ohms
+
+%Peukert's constant for battery recharging
+k = 1.12;
+
+
+%% Data
+
+data = importdata('SFUDS_Data.mat');
+
+
+%% Analysis
+
+%data
+v = data(:,2);                              %km/hour
+figure
+plot(v)
+v = (1/3600)*(1000)*v;                      %m/sec
+v = repmat(v,10000,1);                       %m/sec
+time = transpose(1:1:length(v));            %sec
+%Take approximate derivative of velocity to find approximate acceleration
+a = diff(v(:));
+%Adjust a vector length
+a = [0;a];
+
+%Initialize for the loop
+FteVec = [];
+PVec = [];
+PMotorVec = [];
+PBatVec = [];
+PteVec = [];
+QVec = [];
+VVec = [];
+iVec = [];
+dVec = [];
+Qoc = Cbat/Voc;                             %Amp/hr
+Q = Qoc;                                    %Amp/hr
+V = Voc;                                    %V
+t = 0;                                      %time index
+d = 0;                                      %m
+
+while (Q > 0)
+    %time step
+    t = t + 1;
+      
+    %Instantaneous load force
+    Fte = mass*g*(mu + psi + (1.05*a(t))/g) + 0.626*A*C_D*(v(t)^2);     %N
+    
+    %Instantaneous load power draw
+    Pte = Fte*v(t);                                                   %Watt
+    %Power Hotel
+    Photel = 0.1*Pte;
+    %Instantaneous battery current
+    %Initialize variables
+%     Pbat1=0;
+%     Pbat=0;
+    if (Pte == 0)
+        i = 0;
+        Pbat1 = 0;
+        Pbat = 0;
+    elseif (Pte > 0)
+        %Instantaneous power drawn from battery
+        Pbat1 = Pte/eta + Photel;
+        Pbat = (1/0.75)*Pbat1;
+        %discharging battery (consuming energy)
+        i = (V - sqrt((V^2) - 4*Rin*Pbat)) / (2*Rin);           %Amp
+    else
+        %Instantaneous power drawn from battery
+        Pbat1 = eta*Pte + Photel;
+        Pbat = (1/0.75)*Pbat1;
+        %charging battery
+        i = (-V + sqrt((V^2) - 8*Rin*Pbat)) / (4*Rin);          %Amp
+    end
+    %Instantaneous battery charge
+    if(Pte > 0)
+        Q = Q - i/3600;                                                 %Amp/hr
+    else
+        Q = Q + (i^k)/3600;
+    end
+    
+    %Use equation from book to find distance
+%     if(v(t) ~= 0)
+%         Photel = 0.1*Fte*v(t);
+%         deltad = Q*v(t) / ((Fte*v(t)/eta) + Photel);
+%         if(deltad > 0)
+%             d = d + deltad;
+%         end
+%     end
+
+    %Total distance travelled. v is in 1 second increments
+    d = d + v(t);
+    
+    %https://endless-sphere.com/forums/viewtopic.php?f=14&t=67721
+    dischargeSlope = (3.5/3.8 - 1);
+    discharge = 1 - (Q/Qoc);
+    V = Voc*(1 + discharge*dischargeSlope);
+    
+    %Storage arrays
+    FteVec(t) = Fte;
+    PVec(t) = Pte;
+    VVec(t) = V;
+    QVec(t) = Q;
+    iVec(t) = i;
+    dVec(t) = d;
+    PbatVec(t) = Pbat;
+    PMotorVec(t) = Pbat1;
+    PteVec(t) = Pte;
+    
+end
+%% Plots
+
+figure
+plot(time,v);
+title('Data - Velocity vs Time');
+xlabel('time(s)');
+ylabel('velocity(m/s)');
+
+figure
+plot(time,a);
+title('Data - Acceleration vs Time');
+xlabel('time(s)');
+ylabel('acceleration(m/s^2)');
+
+figure
+plot(time(1:length(dVec)),dVec);
+title('Calculated - Distance vs Time');
+xlabel('time(s)');
+ylabel('Distance(m)');
+
+figure
+plot(time(1:length(FteVec)),FteVec);
+title('Calculated - Fte vs Time');
+xlabel('time(s)');
+ylabel('Force(N)');
+
+figure
+plot(time(1:length(QVec)),QVec);
+title('Calculated - Q vs Time');
+xlabel('time(s)');
+ylabel('Charge(Amp hour)');
+
+figure
+plot(time(1:length(iVec)),iVec);
+title('Calculated - Battery Current vs Time');
+xlabel('time(s)');
+ylabel('Current(Amp)');
+
+figure
+plot(time(1:length(VVec)),VVec);
+title('Calculated - V vs Time');
+xlabel('time(s)');
+ylabel('Voltage(V)');
+
+
+%% Test Point Plots
+
+figure
+plot(time(1:length(data)), v(1:length(data)), time(1:length(data)), a(1:length(data)));
+title('TP1 - V and A vs Time');
+xlabel('time(s)');
+ylabel('Velocity(m/sec), Acceleration(m/sec^2');
+
+figure
+plot(time(1:length(data)), PteVec(1:length(data)));
+title('TP2 - Power to Move Car');
+xlabel('time(s)');
+ylabel('Power(W)');
+
+figure
+plot(time(1:length(data)), PMotorVec(1:length(data)));
+title('TP3 - Power From Motor');
+xlabel('time(s)');
+ylabel('Power(W)');
+
+figure
+plot(time(1:length(data)), PbatVec(1:length(data)));
+title('TP4 - Power From Battery');
+xlabel('time(s)');
+ylabel('Power(W)');
+##### SOURCE END #####
+--></body></html>
