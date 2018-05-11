@@ -1,0 +1,12 @@
+﻿"toothBaseWidth"=0.01
+"toothEndWidth"=0.0075
+"toothLength"=0.0075
+"holeWidth" = 0.009
+"motorHolderToothSeparation" = 0.01
+"magnetHolderToothSeparation" = 0.02
+"magnetWidth" = 0.0127
+"quarterInch" = 0.00635
+"coilThickness" = 0.0254
+"coilOuterDiameter" = 0.0508
+"legoThickness" = 0.008
+"legoWidth" = 0.016
